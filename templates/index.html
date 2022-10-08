@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: #f5f5f5;
+        }
+
+        .form-signin {
+            width: 100%;
+            max-width: 500px;
+            padding: 15px;
+            margin: auto;
+        }
+
+        .form-signin .checkbox {
+            font-weight: 400;
+        }
+
+        .form-signin .form-floating:focus-within {
+            z-index: 2;
+        }
+
+        .form-signin input[type="text"] {
+            margin-bottom: 1px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+        .mb-4{
+            height: 200px;
+        }
+        .w-100{
+            background-color: rgba(1, 51, 109, 0.846);
+        }
+
+    </style>
+
+</head>
+
+<body class="text-center">
+
+    <main class="form-signin">
+        <form method="post">
+            <!-- https://www.pngkey.com/png/detail/432-4327102_cybersecurity-documentation-icons-of-cyber-security-png.png  -->
+            <img class="mb-4" src="static/image-removebg-preview-removebg-preview.png">
+            <hr>
+            <h2 class="mb-3 fw-normal">Indicator Of Compromise</h2>
+            <h5 class="mb-3 fw-normal">Using Machine Learning to classify url whether malicious, phishing, defacement or benign etc.</h5>
+
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" name="url" placeholder="https://www.c4leb-ai.github.io">
+                <label for="floatingInput">Enter the URL</label>
+            </div>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Predict</button>
+            <p class="mt-5 mb-3 text-muted">&copy; Caleb Chima C</p>
+        </form>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/notiflix@3.2.5/dist/notiflix-aio-3.2.5.min.js"></script>
+
+    <script>
+        document.getElementsByTagName('form')[0].addEventListener('submit', (evt) => {
+            evt.preventDefault();
+            Notiflix.Loading.circle()
+            var url = document.querySelector('form div > #floatingInput').value;
+            axios.post('', {url: url}, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }
+            )
+                .then(function (response) {
+                    // alert(response.data)
+                    // console.log(response.data)
+                    Notiflix.Report.success('Prediction Successful', response.data)
+                })
+                .catch( (error) => {
+                    // console.log(error)
+                })
+                .finally( (response) => {
+                    Notiflix.Loading.remove();
+                    document.querySelector('form div > #floatingInput').value = '';
+                });
+        })
+    </script>
+</body>
+
+</html>
